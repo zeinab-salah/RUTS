@@ -1,0 +1,304 @@
+﻿<Window x:Class="RUTS.View.Beneficaries.Index"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Components="clr-namespace:RUTS.View.Layouts"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:RUTS.View.Beneficaries"
+        xmlns:ViewModel="clr-namespace:RUTS.ViewModel.Benificaries"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:ui="clr-namespace:RUTS"
+        mc:Ignorable="d"
+        Title="Index" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        >
+
+    <Window.DataContext>
+        <ViewModel:BenificariesViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <ResourceDictionary Source="/Styles/DynamicResources/ScrollViewStyles.xaml"/>
+    </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
+
+    <Components:Layout>
+        <StackPanel>
+            <Grid Margin="0 30 0 30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="260"/>
+                </Grid.ColumnDefinitions>
+                <Button 
+                    BorderThickness="0"
+                    Content="+ Add Beneficary"
+                    Foreground="#ffffff"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    Cursor="Hand"
+                    HorizontalAlignment="Center"
+                    Grid.Column="0"
+                    Command="{Binding CreateBeneficary}"
+                    >
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#462AD8"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#28AEED"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="130" 
+                                    Height="30"
+                                    CornerRadius="5"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"
+                         Padding="20 0 0 0"
+                         Text="{Binding Search}"
+                         Style="{StaticResource NoBorderInput}"
+                         BorderThickness="0 0 0 1">
+
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="/RUTS;component/Images/search.png"
+                                        Stretch="None"
+                                        AlignmentX="Left"
+                                        
+                                        />
+                    </TextBox.Background>
+                </TextBox>
+                <Button Grid.Column="1"
+                        Command="{Binding FilterData}"
+                        BorderThickness="0"
+                        Content="SEARCH"
+                        Foreground="#ffffff"
+                        FontSize="12"
+                        Cursor="Hand"
+                        >
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#462AD8"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#28AEED"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" 
+                                            Height="30"
+                                            CornerRadius="15"
+                                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"
+                                                          />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+            <Border
+                Grid.Row="2"
+                Margin="20"
+                Padding="20"
+                Background="#210F55"
+                CornerRadius="6">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Visibility="{Binding Visibility}"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="200 -250 0 0"
+                    Background="{StaticResource panelOverColor}"
+                    CornerRadius="6"
+                    Height="90"
+                    Padding="20"
+                    Width="300">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="15"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="95*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="#fff"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Content="X"
+                            Command="{Binding CloseToaster}"
+                            >
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="18" 
+                                            Height="18"
+                                            CornerRadius="9"
+                                            Background="Transparent">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"
+                                                          />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <TextBlock
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Text="{Binding FeedbackMessage}" 
+                               Foreground="White"/>
+                            <Button
+                        Command="{Binding ConfirmDelete}"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Foreground="#fff">
+                                Delete
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="180" 
+                                        Height="27"
+                                        CornerRadius="9"
+                                        Cursor="Hand"
+                                        Background="{StaticResource color2}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                    </Border>
+                    <ScrollViewer>
+                        <DataGrid  AutoGenerateColumns="False" 
+                          CanUserAddRows="False"    
+                          MaxHeight="300"
+                          Style="{DynamicResource DataGridStyle}" 
+                          CellStyle="{DynamicResource DataGridCellStyle1}" 
+                          RowStyle="{DynamicResource DataGridRowStyle1}"
+                          ItemsSource="{Binding ListOfRecords}" 
+                          SelectedItem="{Binding SelectedItem}"
+                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                              
+                          BorderThickness="0"
+                          Background="Transparent"
+                          Grid.Row="1" 
+                          BorderBrush="Transparent"
+                          Margin="0 10 0 0">
+
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Name}" CanUserResize="False" Width="*"/>
+
+                                <DataGridTemplateColumn Header="Operation"  Width="auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
+                                                  Path=DataContext.EditBeneficary}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource gridEditButton}">
+                                                    <fa:IconImage Style="{StaticResource gridButtonIcon}" Icon="Pencil"/>
+                                                </Button>
+                                                <Button 
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
+                                                  Path=DataContext.RemoveBeneficary}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource gridRemoveButton}">
+                                                    <fa:IconImage Style="{StaticResource gridButtonIcon}" Icon="Remove"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
+                    
+                </Grid>
+            </Border>
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" >
+                <TextBlock Text="Records Per Page" Margin="0 16 5 0" Foreground="White"/>
+                <ComboBox SelectedItem="{Binding SelectedRecord , UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NoBorderComboBox}" Margin="0 0 5 0" IsEditable= "True" MinWidth="35" Width="55">
+                    <sys:Int32>10</sys:Int32>
+                    <sys:Int32>15</sys:Int32>
+                    <sys:Int32>20</sys:Int32>
+                    <sys:Int32>25</sys:Int32>
+                </ComboBox>
+                <Button Content="&lt;&lt;" IsEnabled="{Binding IsFirstEnable}" Command="{Binding FirstCommand}" ToolTip="First Page" Margin="5"  Style="{StaticResource pagination}"></Button>
+                <Button Content="&lt;" IsEnabled="{Binding IsPreviouseEnable}" Command="{Binding PreviousCommand}" ToolTip="Previous Page" Margin="5" Style="{StaticResource pagination}"></Button>
+                <TextBlock VerticalAlignment="Center" Foreground="White">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} {0} of {1}">
+                            <Binding Path="CurrentPage"></Binding>
+                            <Binding Path="NumberOfPages"></Binding>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button Content=">" IsEnabled="{Binding IsNextEnable}" Command="{Binding NextCommand}" ToolTip="Next Page" Margin="5" Style="{StaticResource pagination}"></Button>
+                <Button Content=">>" IsEnabled="{Binding IsLastEnable}" Command="{Binding LastCommand}" ToolTip="Last Page" Margin="5" Style="{StaticResource pagination}"></Button>
+            </StackPanel>
+            
+        </StackPanel>
+    </Components:Layout>
+</Window>

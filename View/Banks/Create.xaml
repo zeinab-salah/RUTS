@@ -1,0 +1,137 @@
+﻿<Window x:Class="RUTS.View.Banks.Create"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Components="clr-namespace:RUTS.View.Layouts"
+        xmlns:local="clr-namespace:RUTS.View.Banks"
+        xmlns:ViewModel="clr-namespace:RUTS.ViewModel.Banks"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:ui="clr-namespace:RUTS"
+        mc:Ignorable="d"
+        Title="Index" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        >
+
+    <Components:Layout>
+        <Border
+            Grid.Row="2"
+            Margin="20"
+            Padding="20"
+            Background="#210F55"
+            CornerRadius="6">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="0 30 0 0" Grid.Column="0" Grid.Row="0">
+                    <StackPanel Margin="0 40 0 0" Orientation="Horizontal">
+                        <TextBlock Margin="0 0 25 0" Foreground="{StaticResource titleColor1}">Bank Name</TextBlock>
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NoBorderInput}" 
+                                         BorderThickness="0 0 0 1"/>
+                    </StackPanel>
+                </StackPanel>
+                <Border Visibility="{Binding Visibility}"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="200 -100 0 0"
+                    Background="{StaticResource panelOverColor}"
+                    CornerRadius="6"
+                    Height="60"
+                    Padding="20"
+                    Width="300">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="95*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Background="Transparent"
+                        Foreground="#fff"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Content="X"
+                        Command="{Binding CloseToaster}"
+                        >
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" 
+                                        Height="18"
+                                        CornerRadius="9"
+                                        Background="Transparent">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"
+                                                      />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <TextBlock
+                           Grid.Column="1"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Text="{Binding FeedbackMessage}" 
+                           Foreground="White"/>
+                    </Grid>
+                </Border>
+                <Button
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Command="{Binding SaveBank}"
+                    BorderThickness="0"
+                    Content="Save"
+                    Foreground="#ffffff"
+                    FontSize="12"
+                    Cursor="Hand"
+                    Margin="0 50 0 0"
+                    >
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#462AD8"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#28AEED"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" 
+                                        Height="40"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"
+                                                      />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Border>
+    </Components:Layout>
+
+</Window>
